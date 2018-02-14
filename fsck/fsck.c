@@ -532,7 +532,7 @@ int fsck_chk_node_blk(struct f2fs_sb_info *sbi, struct f2fs_inode *inode,
 		struct f2fs_fsck *fsck = F2FS_FSCK(sbi);
 
 		fsck_chk_inode_blk(sbi, nid, ftype, node_blk, blk_cnt, &ni, child);
-		quota_add_inode_usage(fsck->qctx, nid, &node_blk->i);
+		f2fs_quota_add_inode_usage(fsck->qctx, nid, &node_blk->i);
 	} else {
 		switch (ntype) {
 		case TYPE_DIRECT_NODE:
@@ -1767,7 +1767,7 @@ int fsck_chk_quota_files(struct f2fs_sb_info *sbi)
 
 	        DBG(1, "Checking Quota file ([%3d] ino [0x%x])\n", qtype, ino);
 		needs_writeout = 0;
-		ret = quota_compare_and_update(sbi, qtype, &needs_writeout,
+		ret = f2fs_quota_compare_and_update(sbi, qtype, &needs_writeout,
 						c.preserve_limits);
 		if (ret == 0 && needs_writeout == 0) {
 			DBG(1, "OK\n");
@@ -1779,7 +1779,7 @@ int fsck_chk_quota_files(struct f2fs_sb_info *sbi)
 			DBG(0, "Fixing Quota file ([%3d] ino [0x%x])\n",
 							qtype, ino);
 			f2fs_filesize_update(sbi, ino, 0);
-			ret = quota_write_inode(sbi, qtype);
+			ret = f2fs_quota_write_inode(sbi, qtype);
 			if (!ret) {
 				c.bug_on = 1;
 				DBG(1, "OK\n");
@@ -2554,7 +2554,7 @@ static int fsck_reconnect_file(struct f2fs_sb_info *sbi)
 				continue;
 			}
 
-			quota_add_inode_usage(fsck->qctx, nid, &node->i);
+			f2fs_quota_add_inode_usage(fsck->qctx, nid, &node->i);
 
 			DBG(1, "Reconnected inode [0x%x] to lost+found\n", nid);
 			cnt++;
@@ -2785,7 +2785,7 @@ void fsck_free(struct f2fs_sb_info *sbi)
 	struct f2fs_fsck *fsck = F2FS_FSCK(sbi);
 
 	if (fsck->qctx)
-		quota_release_context(&fsck->qctx);
+		f2fs_quota_release_context(&fsck->qctx);
 
 	if (fsck->main_area_bitmap)
 		free(fsck->main_area_bitmap);
