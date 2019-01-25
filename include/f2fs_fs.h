@@ -1413,12 +1413,17 @@ static inline int parse_root_owner(char *ids,
 	char *gid = NULL;
 	int i;
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wsign-compare"
+
 	/* uid:gid */
 	for (i = 0; i < strlen(ids) - 1; i++)
 		if (*(ids + i) == ':')
 			gid = ids + i + 1;
 	if (!gid)
 		return -1;
+
+#pragma clang diagnostic pop
 
 	*root_uid = atoi(uid);
 	*root_gid = atoi(gid);
