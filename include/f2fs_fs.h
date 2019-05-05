@@ -1358,7 +1358,7 @@ struct feature {
 };
 
 #define INIT_FEATURE_TABLE						\
-struct feature feature_table[] = {					\
+static struct feature feature_table[] = {				\
 	{ "encrypt",			F2FS_FEATURE_ENCRYPT },		\
 	{ "extra_attr",			F2FS_FEATURE_EXTRA_ATTR },	\
 	{ "project_quota",		F2FS_FEATURE_PRJQUOTA },	\
