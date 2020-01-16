@@ -1365,15 +1365,10 @@ int build_sit_info(struct f2fs_sb_info *sbi)
 	sit_i->elapsed_time = get_cp(elapsed_time);
 	return 0;
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wtautological-compare"
-
 free_validity_maps:
 	for (--start ; start >= 0; --start)
 		free(sit_i->sentries[start].cur_valid_map);
 	free(sit_i->sentries);
-
-#pragma clang diagnostic pop
 
 free_sit_info:
 	free(sit_i);
