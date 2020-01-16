@@ -207,6 +207,7 @@ cc_library_static {
     srcs: [
         "lib/libf2fs.c",
         "lib/libf2fs_io.c",
+        "lib/nls_utf8.c",
     ],
 }
 
@@ -218,6 +219,7 @@ cc_library_static {
     srcs: [
         "fsck/dict.c",
         "fsck/dir.c",
+        "fsck/dump.c",
         "fsck/fsck.c",
         "fsck/main.c",
         "fsck/mkquota.c",
