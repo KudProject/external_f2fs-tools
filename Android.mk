@@ -4,7 +4,7 @@ LOCAL_PATH:= $(call my-dir)
 ifneq (,$filter linux darwin,$(HOST_OS))
 
 # The versions depend on $(LOCAL_PATH)/VERSION
-version_CFLAGS := -DF2FS_MAJOR_VERSION=1 -DF2FS_MINOR_VERSION=10 -DF2FS_TOOLS_VERSION=\"1.10.0\" -DF2FS_TOOLS_DATE=\"2018-01-30\"
+version_CFLAGS := -DF2FS_MAJOR_VERSION=1 -DF2FS_MINOR_VERSION=13 -DF2FS_TOOLS_VERSION=\"1.13.0\" -DF2FS_TOOLS_DATE=\"2019-09-24\"
 common_CFLAGS := -DWITH_ANDROID $(version_CFLAGS) \
     -Wall -Werror \
     -Wno-format \
@@ -67,7 +67,9 @@ LOCAL_SRC_FILES := \
     fsck/main.c \
     fsck/mount.c \
     lib/libf2fs.c \
-    lib/libf2fs_io.c
+    lib/libf2fs_io.c \
+    lib/nls_utf8.c \
+    fsck/dump.c
 LOCAL_C_INCLUDES := $(common_C_INCLUDES)
 LOCAL_CFLAGS := $(common_CFLAGS) -DWITH_SLOAD
 LOCAL_STATIC_LIBRARIES := \
